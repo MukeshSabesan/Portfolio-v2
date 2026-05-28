@@ -1140,7 +1140,7 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#hero" class="nav-logo">M<span>.</span>Sabesan</a>
+  <a href="#hero" class="nav-logo"><span class="switchable-name" ondblclick="switchName()">M</span><span>.</span>Sabesan</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#projects">Projects</a></li>
@@ -1162,8 +1162,7 @@
 
       <h1 class="hero-name">
         <span class="dim">Hi, I’m</span><br>
-        <span id="secretName" ondblclick="switchName()">
-          Mukesh<br>
+        <span class="switchable-name" ondblclick="switchName()">Mukesh</span><br>
           <span class="accent">Sabesan</span>
         </span>
       </h1>
@@ -1185,7 +1184,7 @@
     </div>
 
     <div class="hero-photo-card fade-up" style="transition-delay: 0.2s;">
-      <img src="cover.JPG" alt="Mukesh Sabesan" class="hero-photo">
+      <img src="photos/cover.JPG" alt="Mukesh Sabesan" class="hero-photo">
     </div>
   </div>
 
@@ -1224,23 +1223,23 @@
       <div class="carousel-window">
         <div class="carousel-track">
           <div class="carousel-slide">
-            <img src="nuclear.JPG" alt="Photo 4">
+            <img src="photos/nuclear.JPG" alt="Photo 4">
           </div>
 
           <div class="carousel-slide">
-            <img src="madeira.jpg" alt="Pilatus photo">
+            <img src="photos/madeira.jpg" alt="Pilatus photo">
           </div>
 
           <div class="carousel-slide">
-            <img src="spar.jpg" alt="Photo 2">
+            <img src="photos/spar.jpg" alt="Photo 2">
           </div>
 
           <div class="carousel-slide">
-            <img src="pilatus.JPG" alt="Photo 3">
+            <img src="photos/pilatus.JPG" alt="Photo 3">
           </div>
 
           <div class="carousel-slide">
-            <img src="pool.JPG" alt="Photo 5">
+            <img src="photos/pool.JPG" alt="Photo 5">
           </div>
         </div>
       </div>
@@ -1266,7 +1265,7 @@
       <div class="project-card fade-up">
         <div class="project-img">
           <img 
-            src="capstone_poster.jpg" 
+            src="photos/capstone_poster.jpg" 
             alt="Capstone Poster" 
             class="project-image"
             onclick="openModal(this.src)"
@@ -1292,7 +1291,7 @@
       <div class="project-card fade-up" style="transition-delay:0.1s">
         <div class="project-img">
           <img 
-            src="spotfree.jpg" 
+            src="photos/spotfree.jpg" 
             alt="SpotFree UI" 
             class="project-image"
             onclick="openModal(this.src)"
@@ -1331,7 +1330,7 @@
       <div class="project-card fade-up" style="transition-delay:0.1s">
         <div class="project-img">
           <img 
-            src="securebanking.jpg" 
+            src="photos/securebanking.jpg" 
             alt="Secure Banking System UI" 
             class="project-image"
             onclick="openModal(this.src)"
@@ -1368,7 +1367,7 @@
       <div class="project-card fade-up" style="transition-delay:0.1s">
         <div class="project-img">
           <img 
-            src="fithub.jpg" 
+            src="photos/fithub.jpg" 
             alt="FitHub Personal Dashboard UI" 
             class="project-image"
             onclick="openModal(this.src)"
@@ -1404,7 +1403,7 @@
       <div class="project-card fade-up" style="transition-delay:0.1s">
         <div class="project-img">
           <img 
-            src="budget_tracker.jpg" 
+            src="photos/budget_tracker.jpg" 
             alt="Budget Tracker UI" 
             class="project-image"
             onclick="openModal(this.src)"
@@ -1439,7 +1438,7 @@
       <div class="project-card fade-up" style="transition-delay:0.1s">
         <div class="project-img">
           <img 
-            src="pong.jpg" 
+            src="photos/pong.jpg" 
             alt="Pong Game" 
             class="project-image"
             onclick="openModal(this.src)"
@@ -1685,7 +1684,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>Designed &amp; built by Mukesh Sabesan · 2026</p>
+  <p>Designed &amp; built by <span class="switchable-name" ondblclick="switchName()">Mukesh</span> Sabesan · 2026</p>
 </footer>
 
 <script>
@@ -1774,15 +1773,26 @@
   let showingSecretName = false;
 
   function switchName() {
-    const name = document.getElementById("secretName");
+    const names = document.querySelectorAll('.switchable-name');
+    names.forEach(el => {
+      if (!showingSecretName) {
+        if (el.textContent === "Mukesh"){
+          el.textContent = "Ibrahim";
+          return;
+        }else if (el.textContent === "M") {
+          el.textContent = "I";
+        }
+      } else {
+        if (el.textContent === "Ibrahim"){
+          el.textContent = "Mukesh";
+          return;
+        }else if (el.textContent === "I") {
+          el.textContent = "M";
+        }
+      }
+    });
 
-    if (!showingSecretName) {
-      name.innerHTML = `Ibrahim<br><span class="accent">Sabesan</span>`;
-      showingSecretName = true;
-    } else {
-      name.innerHTML = `Mukesh<br><span class="accent">Sabesan</span>`;
-      showingSecretName = false;
-    }
+    showingSecretName = !showingSecretName;
   }
 </script>
 
