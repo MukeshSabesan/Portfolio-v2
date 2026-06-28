@@ -249,8 +249,8 @@
       top: 20%;
       transform: translateY(-50%);
 
-      width: 360px;
-      height: 460px;
+      width: 400px;
+      height: 500px;
 
       background:
         linear-gradient(145deg, rgba(124,106,247,0.18), rgba(24,24,31,0.9)),
@@ -839,6 +839,10 @@
       box-shadow: 0 0 0 3px var(--bg2), 0 0 0 4px var(--accent);
     }
 
+    .section-title {
+      transition: opacity 0.4s ease;
+    }
+
     .timeline-date {
       font-size: 0.75rem;
       font-weight: 500;
@@ -1125,15 +1129,101 @@
       transform: translateY(0);
     }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      nav { padding: 0 1.5rem; }
-      .nav-links { display: none; }
-      .about-layout, .exp-skills-layout, .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-      .form-row { grid-template-columns: 1fr; }
-      .resume-card { padding: 2rem; flex-direction: column; align-items: flex-start; }
-      .collage { grid-template-rows: repeat(2, 130px); }
+
+      nav {
+        padding: 0 1rem;
+      }
+
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+        padding: 6rem 1.5rem 3rem;
+        gap: 2rem;
+      }
+
+      .hero-inner {
+        max-width: 100%;
+      }
+
+      .hero-photo-card {
+        position: static;
+        transform: none;
+        width: 100%;
+        max-width: 320px;
+        height: auto;
+        aspect-ratio: 3 / 4;
+        margin: 0 auto;
+      }
+
+      h1.hero-name {
+        font-size: 3rem;
+      }
+
+      .hero-tagline {
+        font-size: 1rem;
+      }
+
     }
+
+    @media (max-width:768px){
+
+      section{
+          padding:4rem 0;
+      }
+
+      .container{
+          padding:0 1.25rem;
+      }
+
+      .photo-carousel{
+          width:100%;
+          height:auto;
+      }
+
+      .carousel-window{
+          height:420px;
+      }
+
+      .projects-grid{
+          grid-template-columns:1fr;
+      }
+
+      .project-img{
+          height:180px;
+      }
+
+      .resume-iframe{
+          display:none;
+      }
+
+      .resume-fallback{
+          display:block;
+      }
+
+      nav{
+          justify-content:center;
+      }
+
+      .photo-carousel{
+          order:2;
+          width:100%;
+          max-width:340px;
+          height:auto;
+          margin:auto;
+      }
+
+      .contact-layout{
+          gap:2rem;
+      }
+      .about-text{
+          order:1;
+      }
+
+    }
+
+    
+    
   </style>
 </head>
 <body>
@@ -1184,7 +1274,7 @@
     </div>
 
     <div class="hero-photo-card fade-up" style="transition-delay: 0.2s;">
-      <img src="photos/cover.JPG" alt="Mukesh Sabesan" class="hero-photo">
+      <img src="photos/grad.JPG" alt="Mukesh Sabesan" class="hero-photo">
     </div>
   </div>
 
@@ -1200,7 +1290,7 @@
     <div class="about-layout">
       <div class="about-text fade-up">
         <div class="section-label">About me</div>
-        <h2 class="section-title">Engineer In-Training.<br>Creator.<br>Problem Solver.</h2>
+        <h2 id="about-title" class="section-title">Risk Taker.<br>Road Runner.<br>Entrepreneur.</h2>
         <p>As a <strong>Computer Engineering Graduate from Toronto Metropolitan University</strong> and a previous <strong>Engineering Intern at Ontario Power Generation</strong>, I bring a unique blend of technical skills and real-world experience to every project.
         These experiences have shaped my approach to problem-solving and my passion for creating innovative solutions.</p>
         <p>My journey started in high school, when I was enrolled in the STEM program at W.A. Porter Collegiate Institute. 
@@ -1800,6 +1890,46 @@
   <span class="modal-close">&times;</span>
   <img id="modalImage" class="modal-content" alt="Full project image">
 </div>
+
+<script>
+  const aboutSection = document.getElementById("about");
+  const aboutTitle = document.getElementById("about-title");
+
+  let titleChanged = false;
+
+  const aboutObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !titleChanged) {
+
+        titleChanged = true;
+
+        // Wait 3 seconds after the About section becomes visible
+        setTimeout(() => {
+
+          // Fade out
+          aboutTitle.style.opacity = "0";
+
+          // Change text after fade-out
+          setTimeout(() => {
+            aboutTitle.innerHTML =
+              "Engineer In-Training.<br>Creator.<br>Problem Solver.";
+
+            // Fade back in
+            aboutTitle.style.opacity = "1";
+          }, 400);
+
+        }, 3000);
+
+        // Prevent it from running again
+        aboutObserver.disconnect();
+      }
+    });
+  }, {
+    threshold: 0.5
+  });
+
+  aboutObserver.observe(aboutSection);
+</script>
 
 <script>
   function openModal(src) {
